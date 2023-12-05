@@ -38,7 +38,7 @@ npm run migrate         // For exicute migration
 npm run migrate:undo    // For revert the migration
 ```
 
-Run project suing nodemon
+Run project using nodemon
 
 ```
 npm run start:local
@@ -53,11 +53,11 @@ npm run start
 Open in chrome for local
 
 ```
-http://localhost:{YOUR_PORT}/api/documentation
+http://localhost:{YOUR_PORT}/api/documentation          // Api documentation url for local
 ```
 
 Open in chrome for live
 
 ```
-http://{YOUR_HOST_URL}:{YOUR_PORT}
+http://{YOUR_HOST_URL}:{YOUR_PORT}/api/documentation    // Api documentation url for live
 ```
