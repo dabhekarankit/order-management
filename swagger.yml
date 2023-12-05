@@ -1,0 +1,691 @@
+openapi: "3.0.2"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+
+components:
+  securitySchemes:
+    bearerAuth:
+      description: "#### Example: Bearer [TOKEN]"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    successResponse:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: success message
+
+    errorResponse:
+      description: Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                example: true
+              message:
+                type: string
+                example: idToken is not allowed to be empty
+
+paths:
+  /v1/users/register:
+    post:
+      summary: Register User
+      tags:
+        - Auth
+      description: ""
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Ram Patel"
+                email:
+                  type: string
+                  example: "ram@gmail.com"
+                mobile:
+                  type: string
+                  example: "+91 9558688745"
+                password:
+                  type: string
+                  example: "password"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "User register successfully."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Ram Patel
+                      email: 
+                        type: string
+                        example: ram@gmail.com
+                      mobile: 
+                        type: string
+                        example: "+91 9558688745"
+                      updatedAt: 
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+                      createdAt:
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+                      accessToken:
+                        type: string
+                        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzAxNzkzMjc3LCJleHAiOjE3MDQzODUyNzd9.ZKZ-ky81c9Wu_ucDGoA0hCD6LdS25c7Xp7Tny-4YUDs"
+        "422":
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/users/login:
+    post:
+      summary: Login User
+      tags:
+        - Auth
+      description: ""
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "ram@gmail.com"
+                password:
+                  type: string
+                  example: "password"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "User login successfully."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Ram Patel
+                      email: 
+                        type: string
+                        example: ram@gmail.com
+                      mobile: 
+                        type: string
+                        example: "+91 9558688745"
+                      updatedAt: 
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+                      createdAt:
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+                      accessToken:
+                        type: string
+                        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzAxNzkzMjc3LCJleHAiOjE3MDQzODUyNzd9.ZKZ-ky81c9Wu_ucDGoA0hCD6LdS25c7Xp7Tny-4YUDs"
+        "422":
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/users:
+    get:
+      summary: Get list with pagination
+      description: ""
+      tags:
+        - User
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+          required: true
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 10
+          required: true
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/successResponse"
+        "422":
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/users/{userId}:
+    get:
+      summary: Get details
+      description: ""
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "User details load successfully."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Ram Patel
+                      email: 
+                        type: string
+                        example: ram@gmail.com
+                      mobile: 
+                        type: string
+                        example: "+91 9558688745"
+                      updatedAt: 
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+                      createdAt:
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+        "422":
+          $ref: "#/components/responses/errorResponse"
+
+    put:
+      summary: Update User
+      tags:
+        - User
+      description: ""
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Ram Patel"
+                email:
+                  type: string
+                  example: "ram@gmail.com"
+                mobile:
+                  type: string
+                  example: "+91 9558688745"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "User updated successfully."
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Ram Patel
+                      email: 
+                        type: string
+                        example: ram@gmail.com
+                      mobile: 
+                        type: string
+                        example: "+91 9558688745"
+                      updatedAt: 
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+                      createdAt:
+                        type: string
+                        example: "2023-12-05T15:49:23.246Z"
+        "422":
+          $ref: "#/components/responses/errorResponse"  
+
+    delete:
+      summary: Delete User
+      tags:
+        - User
+      description: ""
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true      
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "User deleted successfully."
+        "422":
+          $ref: "#/components/responses/errorResponse"  
+
+  /v1/users/change-password/{userId}:
+    post:
+      summary: Change Password
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+      description: ""
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true    
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                  example: "password"
+                password:
+                  type: string
+                  example: "admin@123"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Password changed successfully."
+        "422":
+          $ref: "#/components/responses/errorResponse"      
+
+  /v1/products:
+    post:
+      summary: Add Product
+      tags:
+        - Product
+      description: ""  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Parle G"
+                originalAmount:
+                  type: number
+                  example: 20
+                discountedAmount:
+                  type: number
+                  example: 18
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Product added successfully."
+                  data: 
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Parle G
+                      originalAmount:
+                        type: number
+                        example: 20
+                      discountedAmount:
+                        type: number
+                        example: 18
+                      updatedAt:
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+                      createdAt: 
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+        "422":
+          $ref: "#/components/responses/errorResponse"       
+
+    get:
+      summary: Get list with pagination
+      description: ""
+      tags:
+        - Product
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+          required: true
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 10
+          required: true
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/successResponse"
+        "422":
+          $ref: "#/components/responses/errorResponse"      
+
+  /v1/products/{productId}:
+    put:
+      summary: Update Product
+      tags:
+        - Product
+      description: "" 
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: integer
+          required: true 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Parle G"
+                originalAmount:
+                  type: number
+                  example: 20
+                discountedAmount:
+                  type: number
+                  example: 18
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Product updated successfully."
+                  data: 
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Parle G
+                      originalAmount:
+                        type: number
+                        example: 20
+                      discountedAmount:
+                        type: number
+                        example: 18
+                      updatedAt:
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+                      createdAt: 
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+        "422":
+          $ref: "#/components/responses/errorResponse"       
+
+    delete:
+      summary: Delete Product
+      tags:
+        - Product
+      description: "" 
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: integer
+          required: true      
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Product deleted successfully."
+        "422":
+          $ref: "#/components/responses/errorResponse"         
+
+  /v1/payments:
+    post:
+      summary: Initiat Payment
+      tags:
+        - Payment
+      security:
+        - bearerAuth: []
+      description: ""  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: number
+                  example: 1
+                invoiceId:
+                  type: number
+                  example: "xyz"
+                txnId:
+                  type: number
+                  example: "abc"
+                paidAmount:
+                  type: number
+                  example: 18
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Payment initiated successfully."
+                  data: 
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      productId:
+                        type: number
+                        example: 1
+                      invoiceId:
+                        type: number
+                        example: "xyz"
+                      txnId:
+                        type: number
+                        example: "abc"
+                      paidAmount:
+                        type: number
+                        example: 18
+                      userId:
+                        type: number
+                        example: 1
+                      dateTime:
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+                      updatedAt:
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+                      createdAt: 
+                        type: string
+                        example: "2023-12-05T18:30:33.853Z"
+        "422":  
+          $ref: "#/components/responses/errorResponse"  
+
+  /v1/payments/update-status:
+    post:
+      summary: Payment success
+      tags:
+        - Payment
+      security:
+        - bearerAuth: []
+      description: "- paymentStatus: success, failed"  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                paymentId:
+                  type: number
+                  example: 1
+                paymentStatus:
+                  type: string
+                  enum:
+                    - success
+                    - failed
+                  example: success
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Payment status updated successfully."
+        "422":  
+          $ref: "#/components/responses/errorResponse"  
+
+
+
+
+
+
