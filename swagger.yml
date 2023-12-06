@@ -194,7 +194,59 @@ paths:
             type: string
       responses:
         "200":
-          $ref: "#/components/responses/successResponse"
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "User list load successfully."
+                  data:
+                    type: object
+                    properties:
+                      meta:
+                        type: object
+                        properties:
+                          totalCounts:
+                            type: number
+                            example: 2
+                          totalPages:
+                            type: number
+                            example: 1
+                          currentPage:
+                            type: number
+                            example: 1
+                          limit:
+                            type: number
+                            example: 10
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 1
+                            name:
+                              type: string
+                              example: Ram Patel
+                            email: 
+                              type: string
+                              example: ram@gmail.com
+                            mobile: 
+                              type: string
+                              example: "+91 9558688745"
+                            updatedAt: 
+                              type: string
+                              example: "2023-12-05T15:49:23.246Z"
+                            createdAt:
+                              type: string
+                              example: "2023-12-05T15:49:23.246Z"
         "422":
           $ref: "#/components/responses/errorResponse"
 
@@ -471,7 +523,59 @@ paths:
             type: string
       responses:
         "200":
-          $ref: "#/components/responses/successResponse"
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Product list load successfully."
+                  data:
+                    type: object
+                    properties:
+                      meta:
+                        type: object
+                        properties:
+                          totalCounts:
+                            type: number
+                            example: 2
+                          totalPages:
+                            type: number
+                            example: 1
+                          currentPage:
+                            type: number
+                            example: 1
+                          limit:
+                            type: number
+                            example: 10
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 1
+                            name:
+                              type: string
+                              example: Parle G
+                            originalAmount:
+                              type: number
+                              example: 20
+                            discountedAmount:
+                              type: number
+                              example: 18
+                            updatedAt:
+                              type: string
+                              example: "2023-12-05T18:30:33.853Z"
+                            createdAt: 
+                              type: string
+                              example: "2023-12-05T18:30:33.853Z"
         "422":
           $ref: "#/components/responses/errorResponse"      
 
